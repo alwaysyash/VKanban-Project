@@ -84,6 +84,7 @@
                 <h1 class = "font-weight-bold px-5 pt-5 d-flex justify-content-center">VKanban</h1>
                 <h4 class = "px-5 pt-5 d-flex justify-content-center"> Create an Account</h4>
                 <form class = "px-5 " name="myForm" class="container" action=""  method="post">
+                    {% csrf_token %}
 
                     <div class ="form-row d-flex justify-content-center">
                         <div class="col-lg-7">
@@ -92,20 +93,21 @@
                         </div>
                     <div class ="form-row d-flex justify-content-center">
                         <div class="col-lg-7">
-                        <input type ="password" name="pass" placeholder="Set Password" class = "form-control my-3 p-4">
+                        <input type ="password" name="password" placeholder="Set Password" class = "form-control my-3 p-4">
                     </div>
                         </div>
                     <div class ="form-row d-flex justify-content-center">
                         <div class="col-lg-7">
-                        <button type ="button" onclick=" return validateForm()" class="btn1 mt-3 mb-5 " >Register </button>
+                        <button type ="submit" onclick=" return validateForm()" class="btn1 mt-3 mb-5 " >Register </button>
                         <p>Go back to
-                        <a href="#" class="link-dark ">Login Page.</a></p>
+                        <a href="{% url 'Auth:login' %}" class="link-dark ">Login Page.</a></p>
+                        <h5> {{error}} </h5> 
                     </div>
                        
-                    
                 
                     </div>
                 </form>
+                
             
             </div>   
             </div>  
