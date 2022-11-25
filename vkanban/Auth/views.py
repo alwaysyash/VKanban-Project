@@ -4,8 +4,8 @@ from django.contrib.auth.models import User
 from django.urls.resolvers import re
 import pdb
 
-def user_exists(email):
-    result_set = User.objects.filter(username = email)
+def user_exists(username):
+    result_set = User.objects.filter(username =username)
     return result_set.exists()
 
 def Login(request):
@@ -14,10 +14,9 @@ def Login(request):
         return render(request,"Auth/login.html",{"error":""})
     elif(request.method == "POST"):
 
-        email = request.POST["email"]
+        username = request.POST["username"]
         password = request.POST["password"]
-
-        user = authenticate(username = email,password = password)
+        user = authenticate(username = username,password = password)
         if(user is not None):
             login(request,user)
             #redirect to main page
@@ -34,17 +33,16 @@ def registration(request):
         return  render(request,"Auth/register.html",{"error":""})
 
     elif(request.method == "POST"):
-        email = request.POST["email"]
+        username = request.POST["username"]
         password = request.POST["password"]
 
-        if(user_exists(email)):
+        if(user_exists(username)):
             
-            error_message = {"error":"Email already in use"}
+            error_message = {"error":"username already in use"}
             return render(request,"Auth/register.html",error_message)
         
         else:
-            new_user = User.objects.create(username = email,password = password)
-            new_user.save()
+            new_user = User.objects.create_user(username = username,password = password)
 
             #return redirect() to main page
         
