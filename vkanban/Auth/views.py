@@ -22,7 +22,6 @@ def Login(request):
             #redirect to main page
         else:
             return render(request,"Auth/login.html",{"error":"Username or password incorrect"}) 
-            pass
 
 
 
