@@ -22,6 +22,7 @@ class Cards(models.Model):
 
 class creates(models.Model):
     card = models.ForeignKey(Cards, on_delete=models.PROTECT)
+    KanbanId = models.ForeignKey(Kanban, on_delete=models.PROTECT)
     user = models.ForeignKey(User, on_delete=models.PROTECT)
 
 class hasAcessTo(models.Model):
