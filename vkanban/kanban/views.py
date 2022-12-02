@@ -3,6 +3,8 @@ from datetime import datetime
 from kanban.models import *
 from django.contrib.auth.models import User
 from django.contrib.auth.decorators import login_required
+from kanban.forms import *
+from django.http import HttpResponse
 # Create your views here.
 @login_required
 def home(request):
@@ -48,3 +50,21 @@ def kontent(request, id):
                 onhold.append(d)
 
         return render(request,'kanban/cards.html', {'todo':todo, 'in_progress':inprogress, 'done':done,'on_hold':onhold,'name':name})
+
+@login_required
+def create_board(request):
+    if request.method == 'GET':
+        form = creatBoardForm()
+        return render(request, 'kanban/create_board.html',{'form':form})
+    else:
+        form = creatBoardForm(request.POST)
+        if form.is_valid():
+            new_board = Kanban()
+            new_board.KanbanId = form.cleaned_data['KanbanId']
+            new_board.KanbanName = form.cleaned_data['KanbanName']
+            new_board.description = form.cleaned_data['description']
+            new_board.save()
+            return HttpResponse("New board added")
+        else:
+            return render(request, 'kanban/create_board.html', {'form': form})
+
