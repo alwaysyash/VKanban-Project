@@ -99,6 +99,12 @@
         white-space: nowrap;
         -webkit-overflow-scrolling: touch;
       }
+      .link1 {
+        color: white;
+      }
+      .link1:hover {
+        color: black;
+      }
     </style>
 
     
@@ -164,7 +170,7 @@ style="background-image:url('image.png');"
               <p class="card-text">{{i.description}}</p>
               <div class="d-flex justify-content-center ">
                   <!-- <button type="button" class="btn2 " onclick="openboard()">Open</button> -->
-                  <a class="btn2" href="{% url 'kanban:kontent' id=i.id %}">Open</a>
+                  <button class="btn2"><a href="{% url 'kanban:kontent' id=i.id %}" class="link1">Open</a></button>
                 </div>
               </div>
               </div>
