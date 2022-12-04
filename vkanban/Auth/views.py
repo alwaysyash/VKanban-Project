@@ -1,7 +1,8 @@
 from django.shortcuts import render,redirect
-from django.contrib.auth import authenticate, login
+from django.contrib.auth import authenticate, login, logout
 from django.contrib.auth.models import User
 from django.urls.resolvers import re
+from django.contrib.auth.decorators import login_required
 import pdb
 
 def user_exists(username):
@@ -43,7 +44,12 @@ def registration(request):
         
         else:
             new_user = User.objects.create_user(username = username,password = password)
+            return redirect("Auth:login")
 
+@login_required
+def logout_view(request):
+    logout(request)
+    return redirect("Auth:login")
             #return redirect() to main page
         
         
