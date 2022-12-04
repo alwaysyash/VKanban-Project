@@ -146,7 +146,7 @@ style="background-image:url('image.png');"
           <button type="submit" class="btn1 mt-3 " onclick="location.href='{% url 'kanban:create_board'%}'">Create a Kanban</button>
         </div>
         <div class="col">
-          <button type="button" class="btn1 mt-3 mb-4">Join a Kanban</button>
+          <button type="submit" class="btn1 mt-3 mb-4" onclick="location.href='{% url 'kanban:join_board'%}'">Join a Kanban</button>
         </div>
         </div>
         </p>
@@ -196,7 +196,7 @@ style="background-image:url('image.png');"
       <a href="#">Back to top</a>
     </p>
     <p class="mb-1"></p>
-    <p class="mb-0">Want to log out? <a href="/">Log Out</a> </p>
+    <p class="mb-0">Want to log out? <a href="{% url 'Auth:logout' %}">Log Out</a> </p>
   </div>
 </footer>
 

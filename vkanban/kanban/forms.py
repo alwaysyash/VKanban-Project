@@ -7,4 +7,10 @@ class creatBoardForm(ModelForm):
         model = Kanban
         fields = ['KanbanId','KanbanName','description']
         
-    
+class addCardForm(ModelForm):
+    class Meta:
+        model = Cards
+        fields = ['cardID','content', 'deadline']
+
+class joinBoardForm(forms.Form):
+    kanbanId = forms.IntegerField()

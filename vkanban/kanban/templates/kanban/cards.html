@@ -84,13 +84,16 @@
         <h1 class="fw-light px-3 py-3" style="color: white;">
           {{name}}
         </h1>
+        <h5 class="fw-light px-3 py-3" style="color: white;">
+          ID: {{kid}}
+        </h5>
         <div class="container-fluid ">
           <div class="row py-3">
             <div class="col-sm-6 col-md-4 col-xl-3 py-3">
               <div class="card bg-light">
                 <div class="card-body">
                   <h6 class="card-title text-uppercase text-truncate py-2">Todo</h6>
-                  <button class="btn btn-outline-secondary"> + Add Card</button>
+                  <button type="submit" class="btn btn-outline-secondary" onclick="location.href='{% url 'kanban:add_card' kid=kid state="todo"%}'"> + Add Card</button>
                   <div class="items">
                     <!--====================================================================================================  -->
                     {% for card in todo %}    
@@ -98,10 +101,10 @@
                       <div class="card-body p-3">
                         <div class="card-title">
 
-                          <h4 class="fw-normal">{{card.cardID}}</h4>
+                          <h4 class="fw-normal">{{card.content}}</h4>
                         </div>
                         <p>
-                          {{card.content}}
+                          ID: {{card.cardID}}
                         </p>
                       </div>
                       <div class="row">
@@ -112,14 +115,17 @@
                               Options
                             </button>
                             <div class="dropdown-menu">
-                              <a class="dropdown-item" href="#">Action</a>
-                              <a class="dropdown-item" href="#">Another action</a>
-                              <a class="dropdown-item" href="#">Something else here</a>
+                              <a class="dropdown-item" href='{% url "kanban:delete_card" kid=kid cid=card.cardID %}'>Delete</a>
+                              <a class="dropdown-item" href='{% url "kanban:move_card" kid=kid cid=card.cardID state="in_progress"%}'>Move to In Progress</a>
+                              <a class="dropdown-item" href='{% url "kanban:move_card" kid=kid cid=card.cardID state="done"%}'>Move to Done</a>
+                              <a class="dropdown-item" href='{% url "kanban:move_card" kid=kid cid=card.cardID state="on_hold"%}'>Move to On Hold</a>
                             </div>
                           </div>
                         </div>
                         <div class="col-8">
-                          <p style="color: grey; padding-top: 6px; padding-left: 20px;">{{card.deadline}}</p>
+                          <p style="color: grey; padding-top: 6px; padding-left: 20px;">Author: {{card.author}}</p>
+                          <p style="color: grey; padding-top: 6px; padding-left: 20px;">Last Edit: {{card.last_edit}}</p>
+                          <p style="color: grey; padding-top: 6px; padding-left: 20px;">Due: {{card.deadline}}</p>
                         </div>
                       </div>
                     </div>
@@ -148,7 +154,7 @@
                     <div class="card bg-light">
                       <div class="card-body">
                         <h6 class="card-title text-uppercase text-truncate py-2">In Progress</h6>
-                        <button class="btn btn-outline-secondary"> + Add Card</button>
+                        <button type="submit" class="btn btn-outline-secondary" onclick="location.href='{% url 'kanban:add_card' kid=kid state="in_progress"%}'"> + Add Card</button>
                         <div class="items">
                           <!--====================================================================================================  -->
                           {% for card in in_progress %}    
@@ -156,10 +162,10 @@
                             <div class="card-body p-3">
                               <div class="card-title">
       
-                                <h4 class="fw-normal">{{card.cardID}}</h4>
+                                <h4 class="fw-normal">{{card.content}}</h4>
                               </div>
                               <p>
-                                {{card.content}}
+                                {{card.cardID}}
                               </p>
                             </div>
                             <div class="row">
@@ -170,14 +176,17 @@
                                     Options
                                   </button>
                                   <div class="dropdown-menu">
-                                    <a class="dropdown-item" href="#">Action</a>
-                                    <a class="dropdown-item" href="#">Another action</a>
-                                    <a class="dropdown-item" href="#">Something else here</a>
+                                    <a class="dropdown-item" href='{% url "kanban:delete_card" kid=kid cid=card.cardID %}'>Delete</a>
+                                    <a class="dropdown-item" href='{% url "kanban:move_card" kid=kid cid=card.cardID state="in_progress"%}'>Move to Todo</a>
+                                    <a class="dropdown-item" href='{% url "kanban:move_card" kid=kid cid=card.cardID state="done"%}'>Move to Done</a>
+                                    <a class="dropdown-item" href='{% url "kanban:move_card" kid=kid cid=card.cardID state="on_hold"%}'>Move to On Hold</a>
                                   </div>
                                 </div>
                               </div>
                               <div class="col-8">
-                                <p style="color: grey; padding-top: 6px; padding-left: 20px;">{{card.deadline}}</p>
+                                <p style="color: grey; padding-top: 6px; padding-left: 20px;">Author: {{card.author}}</p>
+                                <p style="color: grey; padding-top: 6px; padding-left: 20px;">Last Edit: {{card.last_edit}}</p>
+                                <p style="color: grey; padding-top: 6px; padding-left: 20px;">Due: {{card.deadline}}</p>
                               </div>
                             </div>
                           </div>
@@ -205,7 +214,7 @@
                         <div class="card bg-light">
                           <div class="card-body">
                             <h6 class="card-title text-uppercase text-truncate py-2">Done</h6>
-                            <button class="btn btn-outline-secondary"> + Add Card</button>
+                            <button type="submit" class="btn btn-outline-secondary" onclick="location.href='{% url 'kanban:add_card' kid=kid state="done"%}'"> + Add Card</button>
                             <div class="items">
                               <!--====================================================================================================  -->
                               {% for card in done %}    
@@ -213,10 +222,10 @@
                                 <div class="card-body p-3">
                                   <div class="card-title">
           
-                                    <h4 class="fw-normal">{{card.cardID}}</h4>
+                                    <h4 class="fw-normal">{{card.content}}</h4>
                                   </div>
                                   <p>
-                                    {{card.content}}
+                                    {{card.cardID}}
                                   </p>
                                 </div>
                                 <div class="row">
@@ -227,14 +236,17 @@
                                         Options
                                       </button>
                                       <div class="dropdown-menu">
-                                        <a class="dropdown-item" href="#">Action</a>
-                                        <a class="dropdown-item" href="#">Another action</a>
-                                        <a class="dropdown-item" href="#">Something else here</a>
+                                        <a class="dropdown-item" href='{% url "kanban:delete_card" kid=kid cid=card.cardID %}'>Delete</a>
+                                        <a class="dropdown-item" href='{% url "kanban:move_card" kid=kid cid=card.cardID state="done"%}'>Move to Todo</a>
+                                        <a class="dropdown-item" href='{% url "kanban:move_card" kid=kid cid=card.cardID state="in_progress"%}'>Move to In Progress</a>
+                                        <a class="dropdown-item" href='{% url "kanban:move_card" kid=kid cid=card.cardID state="on_hold"%}'>Move to On Hold</a>
                                       </div>
                                     </div>
                                   </div>
                                   <div class="col-8">
-                                    <p style="color: grey; padding-top: 6px; padding-left: 20px;">{{card.deadline}}</p>
+                                    <p style="color: grey; padding-top: 6px; padding-left: 20px;">Author: {{card.author}}</p>
+                                    <p style="color: grey; padding-top: 6px; padding-left: 20px;">Last Edit: {{card.last_edit}}</p>
+                                    <p style="color: grey; padding-top: 6px; padding-left: 20px;">Due: {{card.deadline}}</p>
                                   </div>
                                 </div>
                               </div>
@@ -262,7 +274,7 @@
                             <div class="card bg-light">
                               <div class="card-body">
                                 <h6 class="card-title text-uppercase text-truncate py-2">On Hold</h6>
-                                <button class="btn btn-outline-secondary"> + Add Card</button>
+                                <button type="submit" class="btn btn-outline-secondary" onclick="location.href='{% url 'kanban:add_card' kid=kid state="on_hold"%}'"> + Add Card</button>
                                 <div class="items">
                                   <!--====================================================================================================  -->
                                   {% for card in on_hold %}    
@@ -270,10 +282,10 @@
                                     <div class="card-body p-3">
                                       <div class="card-title">
               
-                                        <h4 class="fw-normal">{{card.cardID}}</h4>
+                                        <h4 class="fw-normal">{{card.content}}</h4>
                                       </div>
                                       <p>
-                                        {{card.content}}
+                                        {{card.cardID}}
                                       </p>
                                     </div>
                                     <div class="row">
@@ -284,14 +296,17 @@
                                             Options
                                           </button>
                                           <div class="dropdown-menu">
-                                            <a class="dropdown-item" href="#">Action</a>
-                                            <a class="dropdown-item" href="#">Another action</a>
-                                            <a class="dropdown-item" href="#">Something else here</a>
+                                            <a class="dropdown-item" href='{% url "kanban:delete_card" kid=kid cid=card.cardID %}'>Delete</a>
+                                            <a class="dropdown-item" href='{% url "kanban:move_card" kid=kid cid=card.cardID state="on_hold"%}'>Move to On Todo</a>
+                                            <a class="dropdown-item" href='{% url "kanban:move_card" kid=kid cid=card.cardID state="in_progress"%}'>Move to In Progress</a>
+                                            <a class="dropdown-item" href='{% url "kanban:move_card" kid=kid cid=card.cardID state="done"%}'>Move to Done</a>
                                           </div>
                                         </div>
                                       </div>
                                       <div class="col-8">
-                                        <p style="color: grey; padding-top: 6px; padding-left: 20px;">{{card.deadline}}</p>
+                                        <p style="color: grey; padding-top: 6px; padding-left: 20px;">Author: {{card.author}}</p>
+                                        <p style="color: grey; padding-top: 6px; padding-left: 20px;">Last Edit: {{card.last_edit}}</p>
+                                        <p style="color: grey; padding-top: 6px; padding-left: 20px;">Due: {{card.deadline}}</p>
                                       </div>
                                     </div>
                                   </div>
@@ -326,7 +341,7 @@
         <a href="#">Back to top</a>
       </p>
       <p class="mb-1"></p>
-      <p class="mb-0">Want to log out? <a href="/">Log Out</a> </p>
+      <p class="mb-0">Want to log out? <a href="{% url 'Auth:logout' %}">Log Out</a> </p>
     </div>
   </footer>
 

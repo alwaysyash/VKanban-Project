@@ -16,14 +16,14 @@ class Cards(models.Model):
     state = models.TextField(max_length=200)
     last_edit = models.DateTimeField()
     content = models.TextField(max_length=1000)
-    deadline = models.DateTimeField()
+    deadline = models.DateField(null=True, blank=True)
     class Meta:
         unique_together = (('cardID', 'KanbanId'))
 
-class creates(models.Model):
-    card = models.ForeignKey(Cards, on_delete=models.PROTECT)
-    KanbanId = models.ForeignKey(Kanban, on_delete=models.PROTECT)
-    user = models.ForeignKey(User, on_delete=models.PROTECT)
+# class creates(models.Model):
+#     card = models.ForeignKey(Cards, on_delete=models.PROTECT)
+#     KanbanId = models.ForeignKey(Kanban, on_delete=models.PROTECT)
+#     user = models.ForeignKey(User, on_delete=models.PROTECT)
 
 class hasAcessTo(models.Model):
     kanban = models.ForeignKey(Kanban, on_delete=models.PROTECT)
